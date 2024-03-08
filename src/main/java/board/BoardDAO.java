@@ -153,26 +153,25 @@ public class BoardDAO {
 	public int update(BoardVO vo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		String query = "update board set title = ?, writer = ?, content = ? where num = ?";
+		String query = "update board set title=?, content=? where num=?";
 		int ret = -1;
 		try {
 			con = ju.getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, vo.getTitle());
-			pstmt.setString(2, vo.getWriter());
-			pstmt.setString(3, vo.getContent());
-			pstmt.setInt(4, vo.getNum());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setInt(3, vo.getNum());
 			ret = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			if(pstmt != null) {
 				try {
-					pstmt.close();
+					pstmt.close();	
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}//if
+			}
 			if(con != null) {
 				try {
 					con.close();
@@ -180,9 +179,10 @@ public class BoardDAO {
 					e.printStackTrace();
 				}
 			}
-		}//try
+		}
 		return ret;
-	}//update
+		
+	}
 	
 	public int delete(int num) {
 		Connection con = null;
